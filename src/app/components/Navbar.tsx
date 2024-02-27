@@ -7,7 +7,7 @@ export default function Navbar() {
           <p className='text-primary text-xl font-bold'>CiptaKode</p>
         </a>
         <a
-          href='wa.me/6285649915406'
+          href='https://wa.me/6285649915406'
           className='
             py-3 px-8 bg-biru rounded-full text-white  font-medium text-xl
             hover:bg-white hover:text-biru
