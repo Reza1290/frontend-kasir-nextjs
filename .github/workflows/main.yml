@@ -23,10 +23,10 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         port: 22
         script: |
-          cd ~./var/www/ciptakode/
+          cd ~./var/www/page/
           git pull origin master
           git status
           docker stop ciptakode
           docker remove ciptakode
           docker build -t ciptakode .
-          docker run -d -p 80:80 ciptakode --name ciptakode
+          docker run --name ciptakode -d -p 80:80 ciptakode 
