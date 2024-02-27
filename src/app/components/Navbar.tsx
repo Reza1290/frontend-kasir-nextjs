@@ -4,10 +4,10 @@ export default function Navbar() {
       <div className='flex justify-between items-center py-8'>
         <a href='' className='max-h-24 flex items-center'>
           <img src='ikon.png' alt='1' className='max-h-24' />
-          <p className='text-primary text-xl font-bold'>CiptaKode ini 1</p>
+          <p className='text-primary text-xl font-bold'>CiptaKode</p>
         </a>
         <a
-          href=''
+          href='wa.me/6285649915406'
           className='
             py-3 px-8 bg-biru rounded-full text-white  font-medium text-xl
             hover:bg-white hover:text-biru
