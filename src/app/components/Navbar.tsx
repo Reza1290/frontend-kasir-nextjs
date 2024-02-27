@@ -4,7 +4,7 @@ export default function Navbar() {
       <div className='flex justify-between items-center py-8'>
         <a href='' className='max-h-24 flex items-center'>
           <img src='ikon.png' alt='1' className='max-h-24' />
-          <p className='text-primary text-xl font-bold'>CiptaKode</p>
+          <p className='text-primary text-xl font-bold'>CiptaKode ini de</p>
         </a>
         <a
           href=''
