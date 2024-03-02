@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Navbar from './components/Navbar';
+import Component from './page';
 
 export default function Home() {
   return (
@@ -32,7 +33,8 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className='wrapper bg-container p-4 my-16 m-6 rounded-3xl h-72'></div>
+      <div className='wrapper bg-container p-4 my-16 m-6 rounded-3xl h-72'>
+      </div>
     </main>
   );
 }
