@@ -5,7 +5,12 @@ import { redirect } from 'next/navigation';
 import { useState } from 'react';
 
 const Cart = () => {
-  const { data: session, status } = useSession();
+  const { data: session, status } = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect('/login');
+    },
+  });
 
   const [Cart, setCart] = useState(2);
   const [Pay, setPay] = useState(1);
@@ -14,9 +19,6 @@ const Cart = () => {
     return <>...</>;
   }
 
-  if (status === 'unauthenticated') {
-    redirect('/login');
-  }
   const setSelected = (x: number) => {
     setCart(x);
   };
@@ -246,8 +248,6 @@ const Cart = () => {
               </p>
             </div>
           </div>
-
-          
         </div>
       </div>
     </main>

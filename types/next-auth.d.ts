@@ -6,10 +6,15 @@ declare module "next-auth" {
    */
   interface Session {
     user: {
-        email: string
-        /** The user's postal address. */
-      address: string,
+      email: string
+      address: string
       backend: string
     } & DefaultSession["user"]
+  }
+  interface Profile {
+    profile: {
+      given_name:string
+    }
+
   }
 }

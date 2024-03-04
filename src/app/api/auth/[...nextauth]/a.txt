@@ -5,6 +5,7 @@ import GoogleProvider from "next-auth/providers/google"
 // import authoptions from "@/utils/authoptions";
 
 
+// @ts-ignore
 
 const authOptions: AuthOptions = {
     providers : [
@@ -29,7 +30,7 @@ const authOptions: AuthOptions = {
               { email: profile?.email }
             );
             const data = {
-              username: profile?.given_name + " " + profile?.family_name,
+              username: profile.given_name + " " + profile?.family_name,
               email: profile?.email,
               profileUrl: profile?.picture,
             };

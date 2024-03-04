@@ -3,12 +3,17 @@ import Image from 'next/image';
 import Navbar from './components/Navbar';
 import Component from './page';
 import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
-  const handleClick = (list: number) => {};
-  const navigasi = () => {
-    redirect('/cart');
+  const handleClick = (list: number) => {
+    router.push('/cart');
   };
+  const handleRoute = () => {
+    router.push('/cart');
+  };
+
+  const router = useRouter();
   return (
     <main className='flex flex-col items-center gap-10'>
       <Navbar />
@@ -23,7 +28,7 @@ export default function Home() {
             </p>
           </div>
           <button
-            onClick={redirect('/cart')}
+            onClick={handleRoute}
             className='
             bg-biru rounded-2xl w-full text-2xl font-medium py-6 px-16 text-white
             hover:bg-white hover:text-biru
