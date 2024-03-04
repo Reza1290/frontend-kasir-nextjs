@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth, { DefaultSession } from "next-auth"
 
 declare module "next-auth" {
   /**
@@ -8,7 +8,8 @@ declare module "next-auth" {
     user: {
         email: string
         /** The user's postal address. */
-      address: string
-    }
+      address: string,
+      backend: string
+    } & DefaultSession["user"]
   }
 }

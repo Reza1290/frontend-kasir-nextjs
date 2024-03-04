@@ -1,9 +1,19 @@
 'use client';
 
+import axios from 'axios';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 export default function Home() {
   const { data: session } = useSession();
+
+  // const handle = async (e: any) => {
+  //   e.preventDefault();
+  //   const cookie = await axios.post('http://localhost:1290/login', {
+  //     email: 'reza@g.com',
+  //   });
+
+  //   console.log(cookie);
+  // };
 
   return (
     <div className='flex justify-center items-center h-screen'>
@@ -19,11 +29,9 @@ export default function Home() {
           </div>
           <div
             className='bg-biru rounded-lg p-5 flex justify-center gap-6 items-center group hover:bg-white border border-biru cursor-pointer'
-            onClick={() =>
-              signIn('google', {
-                callbackUrl: '/',
-                redirect: true,
-              })
+            onClick={(e) =>
+              signIn('google', { callbackUrl: '/', redirect: true })
+              // handle(e)
             }
           >
             <img

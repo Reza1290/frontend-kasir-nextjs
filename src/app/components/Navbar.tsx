@@ -15,7 +15,7 @@ export default function Navbar() {
         <div className='flex justify-between items-center gap-4'>
           {session ? (
             <>
-              <p>{session?.user.email}</p>
+              <p>{session?.user.name}</p>
               <a
                 onClick={() => signOut()}
                 className='
