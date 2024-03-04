@@ -26,7 +26,7 @@ const authOptions = {
         async signIn({ user, account, profile, email, credentials }) {
             // first axios request to ascertain if our user exists in our custom DB
             const response = await axios.post(
-              "http://localhost:1290/exists",
+              "http://139.59.223.229:1290/exists",
               { email: profile?.email }
             );
             const data = {
@@ -41,14 +41,14 @@ const authOptions = {
               // second axios call which creates a new user in our database
               
               const response = await axios.post(
-                "http://localhost:1290/store",
+                "http://139.59.223.229:1290/store",
                 data
               );
                 
               // retruns true thereby passing control to the next callback
             }
             const cookie = await axios.post(
-              "http://localhost:1290/login",
+              "http://139.59.223.229:1290/login",
               {
                 email: profile?.email
               }
