@@ -67,7 +67,7 @@ const backendURL = process.env.DOMAIN_API;
       return session;
     },
   },
-  // secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/login',
     
