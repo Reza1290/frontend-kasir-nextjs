@@ -5,7 +5,7 @@ import Component from './page';
 import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { FC, useEffect } from 'react';
-import { useThemeMode } from 'flowbite-react';
+// import { useThemeMode } from 'flowbite-react';
 import Chart from 'react-apexcharts';
 import { BiReceipt, BiSolidReceipt } from 'react-icons/bi';
 import { useSession } from 'next-auth/react';

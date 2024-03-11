@@ -146,6 +146,7 @@ const Kasir = () => {
                 if (value.id_category === category[nowMenu].id) {
                   return (
                     <div
+                    key={value.id}
                       className='bg-blue-500 flex flex-col justify-center items-center flex-col size-48 rounded-lg cursor-pointer'
                       onClick={() => setToCart(index)}
                     >
@@ -164,7 +165,7 @@ const Kasir = () => {
               {Array.isArray(cart) &&
                 cart.map((value: any, index) => {
                   return (
-                    <div className='flex justify-between items-center border border-blue-400 rounded-md p-2 gap-1 max-md:flex-col'>
+                    <div key={value.id} className='flex justify-between items-center border border-blue-400 rounded-md p-2 gap-1 max-md:flex-col'>
                       {/* <div className='size-16 bg-blue-400 rounded-md'></div> */}
                       <div className='flex flex-col justify-center mx-5'>
                         <h1>{value.name}</h1>
@@ -269,7 +270,7 @@ const Modal = ({ data, close, totalBelanja }: any) => {
           {Array.isArray(data) &&
             data.map((value: any, index) => {
               return (
-                <div className='flex justify-between'>
+                <div key={value.id} className='flex justify-between'>
                   <h1>{value.name}</h1>
                   <p>
                     ({value.quantity}) Rp. {value.subtotal}
