@@ -5,7 +5,7 @@ import { BiMinus, BiPlus, BiX } from 'react-icons/bi';
 
 const Kasir = () => {
   const [nowMenu, setNowMenu] = useState(0);
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState<Category[]>([]);
   const [products, setProducts] = useState([]);
   const { data: session, status } = useSession();
 
@@ -25,9 +25,17 @@ const Kasir = () => {
     });
     setTotal(sum);
   };
+  interface Product {
+    id: number
+    name: string
+    price: number
+  }
+  interface Category {
+    id: number
+  }
 
   const setToCart = (index: any) => {
-    const product: Object = products[index];
+    const product: Product = products[index];
 
     // Check if the product is already in the cart
     const isProductInCart = cart.some((item: any) => item.id === product.id);
@@ -146,7 +154,7 @@ const Kasir = () => {
                 if (value.id_category === category[nowMenu].id) {
                   return (
                     <div
-                    key={value.id}
+                      key={value.id}
                       className='bg-blue-500 flex flex-col justify-center items-center flex-col size-48 rounded-lg cursor-pointer'
                       onClick={() => setToCart(index)}
                     >
@@ -165,7 +173,10 @@ const Kasir = () => {
               {Array.isArray(cart) &&
                 cart.map((value: any, index) => {
                   return (
-                    <div key={value.id} className='flex justify-between items-center border border-blue-400 rounded-md p-2 gap-1 max-md:flex-col'>
+                    <div
+                      key={value.id}
+                      className='flex justify-between items-center border border-blue-400 rounded-md p-2 gap-1 max-md:flex-col'
+                    >
                       {/* <div className='size-16 bg-blue-400 rounded-md'></div> */}
                       <div className='flex flex-col justify-center mx-5'>
                         <h1>{value.name}</h1>
