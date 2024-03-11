@@ -29,15 +29,16 @@ export default function Home() {
   return (
     <main className='flex flex-col items-center gap-10'>
       <div className='flex'>
-        <button onClick={() => console.log(session)}>
+        <button onClick={() => console.log(process.env.BACKEND)}>
           Clc {session?.user.email}
         </button>
+
         <Link
           href={'kasir'}
           className='bg-blue-500 rounded-xl size-64 flex flex-col justify-center items-center hover:border-4 hover:border-blue-800 cursor-pointer'
         >
           <BiSolidReceipt className='fill-white size-32' />
-          <h1 className='text-white font-bold text-4xl '>KASIR</h1>
+          <h1 className='text-white font-bold text-4xl '>KASIR </h1>
         </Link>
       </div>
       {/* <div className='rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-6 xl:p-8 w-full'>
