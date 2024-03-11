@@ -4,8 +4,17 @@ import Navbar from './components/Navbar';
 import Component from './page';
 import { redirect } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { FC, useEffect } from 'react';
+import { useThemeMode } from 'flowbite-react';
+import Chart from 'react-apexcharts';
+import { BiReceipt, BiSolidReceipt } from 'react-icons/bi';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 export default function Home() {
+  const { data: session, status } = useSession();
+
+  const router = useRouter();
   const handleClick = (list: number) => {
     router.push('/cart');
   };
@@ -13,207 +22,211 @@ export default function Home() {
     router.push('/cart');
   };
 
-  const router = useRouter();
+  if (status === 'loading') {
+    return <>...</>;
+  }
+
   return (
     <main className='flex flex-col items-center gap-10'>
-      <Navbar />
-      <div className='wrapper flex justify-between max-md:flex-col'>
-        <div className='p-24 max-md:p-12 py-8 md:w-[50%] flex flex-col items-center justify-start gap-16'>
-          <div className='flex flex-col gap-6'>
-            <h1 className='text-5xl text-primary font-bold'>
-              Buat Bisnismu lebih efektif dan elegan
-            </h1>
-            <p className='text-primary/50 text-2xl'>
-              Kami menyediakan kebutuhan anda. Pesan dalam satu klik.
-            </p>
-          </div>
-          <button
-            onClick={handleRoute}
-            className='
-            bg-biru rounded-2xl w-full text-2xl font-medium py-6 px-16 text-white
-            hover:bg-white hover:text-biru
-            border border-biru
-            transition-all duration-300 ease-in
-          '
-          >
-            Pesan Sekarang
-          </button>
-        </div>
-        <div className='md:w-[50%] flex justify-center items-end'>
-          <div className='bg-biru/20 rounded-full relative shadow-sm shadow-biru/20'>
-            <img src='man.png' className='rounded-full' alt='' />
-          </div>
-        </div>
+      <div className='flex'>
+        <button onClick={() => console.log(session)}>
+          Clc {session?.user.email}
+        </button>
+        <Link
+          href={'kasir'}
+          className='bg-blue-500 rounded-xl size-64 flex flex-col justify-center items-center hover:border-4 hover:border-blue-800 cursor-pointer'
+        >
+          <BiSolidReceipt className='fill-white size-32' />
+          <h1 className='text-white font-bold text-4xl '>KASIR</h1>
+        </Link>
       </div>
-      <div className='flex flex-col  wrapper p-4 my-16 m-6 gap-6'>
-        <div className='bg-container rounded-3xl p-8 flex justify-between max-md:flex-col max-md:items-center'>
-          <div className='text-white my-2'>
-            <h1 className='text-3xl font-bold'>Layanan</h1>
-            <h1 className='text-2xl'>Kami</h1>
+      {/* <div className='rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-6 xl:p-8 w-full'>
+        <div className='mb-4 flex items-center justify-between'>
+          <div className='shrink-0'>
+            <span className='text-2xl font-bold leading-none text-gray-900 dark:text-white sm:text-3xl'>
+              $45,385
+            </span>
+            <h3 className='text-base font-normal text-gray-600 dark:text-gray-400'>
+              Sales Minggu Ini
+            </h3>
           </div>
-          <div className='grid grid-cols-3 gap-4 max-xl:grid-cols-2 max-md:grid-cols-1 justify-end'>
-            <div
-              onClick={() => handleClick(1)}
-              className='bg-white cursor-pointer size-72 rounded-3xl p-4'
+          <div className='flex flex-1 items-center justify-end text-base font-bold text-green-600 dark:text-green-400'>
+            12.5%
+            <svg
+              className='h-5 w-5'
+              fill='currentColor'
+              viewBox='0 0 20 20'
+              xmlns='http://www.w3.org/2000/svg'
             >
-              <div className='my-2'>
-                <h1 className='text-blue-400 font-medium text-2xl'>Sl1cing</h1>
-                <p className='font-medium text-lg'>Slicing design 1 Halaman</p>
-              </div>
-              <h1 className='font-bold text-5xl'>IDR 340K</h1>
-              <div className='border-t  flex flex-col my-4 py-2 gap-1'>
-                <div className='flex items-center justify-start gap-4'>
-                  <svg
-                    className='size-4 fill-gray-300'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 448 512'
-                  >
-                    {/* <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
-                    <path d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' />
-                  </svg>
-                  <p> 2x Revisi</p>
-                </div>
-                <div className='flex items-center justify-start gap-4'>
-                  <svg
-                    className='size-4 fill-gray-300'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 448 512'
-                  >
-                    {/* <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
-                    <path d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' />
-                  </svg>
-                  <p> Desktop Mobile Responsive</p>
-                </div>
-                <div className='flex items-center justify-start gap-4'>
-                  <svg
-                    className='size-4 fill-gray-300'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 448 512'
-                  >
-                    {/* <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
-                    <path d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' />
-                  </svg>
-                  <p> Bebas Konsultasi</p>
-                </div>
-              </div>
-            </div>
-            <div
-              onClick={() => handleClick(2)}
-              className='bg-white cursor-pointer size-72 rounded-3xl p-4'
-            >
-              <div className='my-2'>
-                <h1 className='text-white font-medium text-2xl w-max p-2 py-1 rounded-xl bg-blue-400'>
-                  SlEacing
-                </h1>
-                <p className='font-medium text-lg'>Slicing design 2 Halaman</p>
-              </div>
-              <h1 className='font-bold text-5xl'>IDR 900K</h1>
-              <div className='border-t  flex flex-col my-4 py-2 gap-1'>
-                <div className='flex items-center justify-start gap-4'>
-                  <svg
-                    className='size-4 fill-gray-300'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 448 512'
-                  >
-                    {/* <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
-                    <path d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' />
-                  </svg>
-                  <p> 3x Revisi</p>
-                </div>
-                <div className='flex items-center justify-start gap-4'>
-                  <svg
-                    className='size-4 fill-gray-300'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 448 512'
-                  >
-                    {/* <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
-                    <path d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' />
-                  </svg>
-                  <p> Desktop Mobile Responsive</p>
-                </div>
-                <div className='flex items-center justify-start gap-4'>
-                  <svg
-                    className='size-4 fill-gray-300'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 448 512'
-                  >
-                    {/* <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
-                    <path d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' />
-                  </svg>
-                  <p> Bebas Konsultasi</p>
-                </div>
-                <div className='flex items-center justify-start gap-4'>
-                  <svg
-                    className='size-4 fill-gray-300'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 448 512'
-                  >
-                    {/* <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
-                    <path d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' />
-                  </svg>
-                  <p> Framework JS</p>
-                </div>
-              </div>
-            </div>
-            <div
-              onClick={() => handleClick(3)}
-              className='bg-white cursor-pointer size-72 rounded-3xl p-4'
-            >
-              <div className='my-2'>
-                <h1 className='text-blue-400 font-medium text-2xl'>Batch</h1>
-                <p className='font-medium text-lg'>Slicing design 5 Halaman</p>
-              </div>
-              <h1 className='font-bold text-5xl'>IDR 1500K</h1>
-              <div className='border-t  flex flex-col my-4 py-2 gap-1'>
-                <div className='flex items-center justify-start gap-4'>
-                  <svg
-                    className='size-4 fill-gray-300'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 448 512'
-                  >
-                    {/* <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
-                    <path d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' />
-                  </svg>
-                  <p> 8x Revisi</p>
-                </div>
-                <div className='flex items-center justify-start gap-4'>
-                  <svg
-                    className='size-4 fill-gray-300'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 448 512'
-                  >
-                    {/* <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
-                    <path d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' />
-                  </svg>
-                  <p> Desktop Mobile Responsive</p>
-                </div>
-                <div className='flex items-center justify-start gap-4'>
-                  <svg
-                    className='size-4 fill-gray-300'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 448 512'
-                  >
-                    {/* <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
-                    <path d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' />
-                  </svg>
-                  <p> Bebas Konsultasi</p>
-                </div>
-                <div className='flex items-center justify-start gap-4'>
-                  <svg
-                    className='size-4 fill-gray-300'
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 448 512'
-                  >
-                    {/* <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--> */}
-                    <path d='M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM337 209L209 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L303 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z' />
-                  </svg>
-                  <p> Framework</p>
-                </div>
-              </div>
-            </div>
+              <path
+                fillRule='evenodd'
+                d='M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z'
+                clipRule='evenodd'
+              />
+            </svg>
           </div>
         </div>
-      </div>
+        <SalesChart />
+        <div className='mt-5 flex items-center justify-between border-t border-gray-200 pt-3 dark:border-gray-700 sm:pt-6'>
+          <div className='shrink-0'>
+            <a
+              href='#'
+              className='inline-flex items-center rounded-lg p-2 text-xs font-medium uppercase text-primary-700 hover:bg-gray-100 dark:text-primary-500 dark:hover:bg-gray-700 sm:text-sm'
+            >
+              Sales Report
+              <svg
+                className='ml-1 h-4 w-4 sm:h-5 sm:w-5'
+                fill='none'
+                stroke='currentColor'
+                viewBox='0 0 24 24'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M9 5l7 7-7 7'
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div> */}
     </main>
   );
 }
+
+// const SalesChart: FC = function () {
+//   const { mode } = useThemeMode();
+//   const isDarkTheme = mode === 'dark';
+
+//   const borderColor = isDarkTheme ? '#374151' : '#F3F4F6';
+//   const labelColor = isDarkTheme ? '#93ACAF' : '#6B7280';
+//   const opacityFrom = isDarkTheme ? 0 : 1;
+//   const opacityTo = isDarkTheme ? 0 : 1;
+
+//   const options: ApexCharts.ApexOptions = {
+//     stroke: {
+//       curve: 'smooth',
+//     },
+//     chart: {
+//       type: 'area',
+//       fontFamily: 'Inter, sans-serif',
+//       foreColor: labelColor,
+//       toolbar: {
+//         show: false,
+//       },
+//     },
+//     fill: {
+//       type: 'gradient',
+//       gradient: {
+//         opacityFrom,
+//         opacityTo,
+//         type: 'vertical',
+//       },
+//     },
+//     dataLabels: {
+//       enabled: false,
+//     },
+//     tooltip: {
+//       style: {
+//         fontSize: '14px',
+//         fontFamily: 'Inter, sans-serif',
+//       },
+//     },
+//     grid: {
+//       show: true,
+//       borderColor: borderColor,
+//       strokeDashArray: 1,
+//       padding: {
+//         left: 35,
+//         bottom: 15,
+//       },
+//     },
+//     markers: {
+//       size: 5,
+//       strokeColors: '#ffffff',
+//       hover: {
+//         size: undefined,
+//         sizeOffset: 3,
+//       },
+//     },
+//     xaxis: {
+//       categories: [
+//         '01 Feb',
+//         '02 Feb',
+//         '03 Feb',
+//         '04 Feb',
+//         '05 Feb',
+//         '06 Feb',
+//         '07 Feb',
+//       ],
+//       labels: {
+//         style: {
+//           colors: [labelColor],
+//           fontSize: '14px',
+//           fontWeight: 500,
+//         },
+//       },
+//       axisBorder: {
+//         color: borderColor,
+//       },
+//       axisTicks: {
+//         color: borderColor,
+//       },
+//       crosshairs: {
+//         show: true,
+//         position: 'back',
+//         stroke: {
+//           color: borderColor,
+//           width: 1,
+//           dashArray: 10,
+//         },
+//       },
+//     },
+//     yaxis: {
+//       labels: {
+//         style: {
+//           colors: [labelColor],
+//           fontSize: '14px',
+//           fontWeight: 500,
+//         },
+//         formatter: function (value) {
+//           return '$' + value;
+//         },
+//       },
+//     },
+//     legend: {
+//       fontSize: '14px',
+//       fontWeight: 500,
+//       fontFamily: 'Inter, sans-serif',
+//       labels: {
+//         colors: [labelColor],
+//       },
+//       itemMargin: {
+//         horizontal: 10,
+//       },
+//     },
+//     responsive: [
+//       {
+//         breakpoint: 1024,
+//         options: {
+//           xaxis: {
+//             labels: {
+//               show: false,
+//             },
+//           },
+//         },
+//       },
+//     ],
+//   };
+//   const series = [
+//     {
+//       name: 'Revenue',
+//       data: [6356, 6218, 6156, 6526, 6356, 6256, 6056],
+//       color: '#1A56DB',
+//     },
+//   ];
+
+//   return <Chart height={420} options={options} series={series} type='area' />;
+// };

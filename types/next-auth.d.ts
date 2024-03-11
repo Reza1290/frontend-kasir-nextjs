@@ -9,6 +9,7 @@ declare module "next-auth" {
       email: string
       address: string
       backend: string
+      accessToken: string
     } & DefaultSession["user"]
   }
   interface Profile {
