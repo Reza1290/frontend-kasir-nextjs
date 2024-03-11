@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-const editProduk = ({ params: { slug } }: any) => {
+const EditProduk = ({ params: { slug } }: any) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [product, setProduct] = useState<Product>();
   const { data: session, status } = useSession();
@@ -155,4 +155,4 @@ const editProduk = ({ params: { slug } }: any) => {
   );
 };
 
-export default editProduk;
+export default EditProduk;

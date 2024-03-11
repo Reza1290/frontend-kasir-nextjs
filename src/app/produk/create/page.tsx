@@ -2,7 +2,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
-const createProduk = () => {
+const CreateProduk = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const { data: session, status } = useSession();
@@ -134,4 +134,4 @@ const createProduk = () => {
   );
 };
 
-export default createProduk;
+export default CreateProduk;
