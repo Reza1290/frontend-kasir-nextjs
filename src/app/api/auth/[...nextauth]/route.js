@@ -30,7 +30,7 @@ const backendURL = process.env.DOMAIN_API;
           "password": credentials.password
         };
 
-        const resp = await fetch("http://localhost:8000/api/login", {
+        const resp = await fetch("${process.env.DOMAIN_API}/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

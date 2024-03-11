@@ -26,12 +26,12 @@ const Kasir = () => {
     setTotal(sum);
   };
   interface Product {
-    id: number
-    name: string
-    price: number
+    id: number;
+    name: string;
+    price: number;
   }
   interface Category {
-    id: number
+    id: number;
   }
 
   const setToCart = (index: any) => {
@@ -89,7 +89,7 @@ const Kasir = () => {
     if (!session?.user) return; // Jika tidak ada sesi atau masih memuat, hentikan pengambilan data produk
 
     // Mengambil data produk dari API dengan menyertakan token JWT dalam header Authorization
-    fetch(`http://localhost:8000/api/product_categories_all`, {
+    fetch(`${process.env.DOMAIN_API}/api/product_categories_all`, {
       headers: {
         Authorization: `Bearer ${session.user.accessToken}`,
       },
@@ -100,7 +100,7 @@ const Kasir = () => {
       })
       .catch((error) => console.error('Error fetching data:', error));
 
-    fetch(`http://localhost:8000/api/products`, {
+    fetch(`${process.env.DOMAIN_API}/api/products`, {
       headers: {
         Authorization: `Bearer ${session.user.accessToken}`,
       },
@@ -247,7 +247,7 @@ const Modal = ({ data, close, totalBelanja }: any) => {
       alert('Tambahkan Pesanan Dahulu');
       return;
     }
-    const response = await fetch('http://localhost:8000/api/transactions', {
+    const response = await fetch('${process.env.DOMAIN_API}/api/transactions', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${session?.user.accessToken}`,
