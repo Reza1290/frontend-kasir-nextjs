@@ -89,7 +89,7 @@ const Kasir = () => {
     if (!session?.user) return; // Jika tidak ada sesi atau masih memuat, hentikan pengambilan data produk
 
     // Mengambil data produk dari API dengan menyertakan token JWT dalam header Authorization
-    fetch(`${process.env.DOMAIN_API}/api/product_categories_all`, {
+    fetch(`${process.env.NEXT_PUBLIC_DOMAIN_API}/api/product_categories_all`, {
       headers: {
         Authorization: `Bearer ${session.user.accessToken}`,
       },
@@ -100,7 +100,7 @@ const Kasir = () => {
       })
       .catch((error) => console.error('Error fetching data:', error));
 
-    fetch(`${process.env.DOMAIN_API}/api/products`, {
+    fetch(`${process.env.NEXT_PUBLIC_DOMAIN_API}/api/products`, {
       headers: {
         Authorization: `Bearer ${session.user.accessToken}`,
       },
@@ -236,34 +236,42 @@ const Kasir = () => {
 const Modal = ({ data, close, totalBelanja }: any) => {
   const { data: session } = useSession();
 
+  const [proses, setProses] = useState(false);
+
   const handleSubmit = async () => {
-    const transaksi = {
-      transaction_date: new Date().toISOString().split('T')[0],
-      total_amount: totalBelanja,
-      payment_method: 'cash',
-      items: data,
-    };
-    if (transaksi.items.length == 0) {
-      alert('Tambahkan Pesanan Dahulu');
-      return;
-    }
-    const response = await fetch('${process.env.DOMAIN_API}/api/transactions', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${session?.user.accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(transaksi),
-    });
-    const hasil = await response.json();
-    console.log(hasil);
-    if (hasil.error) {
-      alert('Gagal ' + hasil.error);
-      return;
-    }
-    if (hasil.success) {
-      alert('Berhasil!');
-      window.location.reload();
+    if (!proses) {
+      setProses(true);
+      const transaksi = {
+        transaction_date: new Date().toISOString().split('T')[0],
+        total_amount: totalBelanja,
+        payment_method: 'cash',
+        items: data,
+      };
+      if (transaksi.items.length == 0) {
+        alert('Tambahkan Pesanan Dahulu');
+        return;
+      }
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_DOMAIN_API}/api/transactions`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${session?.user.accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(transaksi),
+        }
+      );
+      const hasil = await response.json();
+      console.log(hasil);
+      if (hasil.error) {
+        alert('Gagal ' + hasil.error);
+        return;
+      }
+      if (hasil.success) {
+        alert('Berhasil!');
+        window.location.reload();
+      }
     }
   };
 

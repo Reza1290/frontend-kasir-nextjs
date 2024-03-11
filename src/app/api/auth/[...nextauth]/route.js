@@ -7,7 +7,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 
 
 // @ts-ignore
-const backendURL = process.env.DOMAIN_API;
+const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API;
 
  const authOptions = {
   session: {
@@ -30,7 +30,7 @@ const backendURL = process.env.DOMAIN_API;
           "password": credentials.password
         };
 
-        const resp = await fetch(`${process.env.DOMAIN_API}/api/login`, {
+        const resp = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_API}/api/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -41,10 +41,8 @@ const backendURL = process.env.DOMAIN_API;
         
         
         if (user.ok) {
-          console.log("nextauth daki user: " + user.ok);
           return user;
         } else {
-          console.log("check your credentials");
           return null;
         }
       },
@@ -62,7 +60,6 @@ const backendURL = process.env.DOMAIN_API;
       session.token = token,
       session.user = {accessToken: token.access_token , ...token.user}
       
-      // console.log("a")
 
       return session;
     },

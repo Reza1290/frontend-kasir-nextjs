@@ -19,6 +19,7 @@ import {
   BiSolidLayout,
   BiTransfer,
   BiUser,
+  BiX,
 } from 'react-icons/bi';
 import { usePathname } from 'next/navigation';
 
@@ -57,7 +58,11 @@ export default function MainLayout({ children, ...props }: any) {
               Nasigor Gila 19
             </a>
             {/* <ButtonTheme /> */}
-            {isSidebarOpen && <button onClick={toggleSidebar}>x</button>}
+            {isSidebarOpen && (
+              <button onClick={toggleSidebar}>
+                <BiX className='text-3xl' />
+              </button>
+            )}
           </div>
           <div className='my-4 pb-4'>
             <h1 className='m-2 text-gray-800 dark:text-gray-200'>Menu</h1>

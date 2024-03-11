@@ -3,7 +3,6 @@ import { usePathname } from 'next/navigation';
 
 export default function MenuButton({ component, children, ...props }: any) {
   const router = usePathname();
-  console.log(router == props.href);
   return (
     <Link href={props.href}>
       <div

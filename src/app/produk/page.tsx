@@ -1,5 +1,6 @@
 'use client';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { BiEdit, BiTrash } from 'react-icons/bi';
 
@@ -8,21 +9,27 @@ const ProductList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { data: session, status } = useSession(); // Menggunakan useSession dari NextAuth
 
+  const [modal, setModal] = useState(false);
+  const [selected, setSelected] = useState();
+
   useEffect(() => {
     if (status === 'loading') return; // Jika tidak ada sesi atau masih memuat, hentikan pengambilan data produk
     if (!session?.user) return; // Jika tidak ada sesi atau masih memuat, hentikan pengambilan data produk
 
     // Mengambil data produk dari API dengan menyertakan token JWT dalam header Authorization
-    fetch(`${process.env.DOMAIN_API}/api/products?page=${currentPage}`, {
-      headers: {
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN_API}/api/products?page=${currentPage}`,
+      {
+        headers: {
+          Authorization: `Bearer ${session.user.accessToken}`,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setProducts(data.data.data);
       })
-      .catch((error) => console.error('Error fetching data:', error));
+      .catch((e) => 1);
   }, [currentPage, session, status]);
 
   const handlePreviousPage = () => {
@@ -33,8 +40,19 @@ const ProductList = () => {
     setCurrentPage((nextPage) => nextPage + 1);
   };
 
+  const toggleModal = () => {
+    setModal(!modal);
+  };
   return (
     <div className='shadow-sm overflow-hidden my-8'>
+      <div className='flex justify-end'>
+        <Link
+          href={'produk/create'}
+          className='bg-blue-500 text-white rounded-md py-2 px-5 text-xl my-2 cursor-pointer'
+        >
+          INPUT
+        </Link>
+      </div>
       <table className='border-collapse table-auto w-full text-md'>
         <thead>
           <tr>
@@ -56,10 +74,16 @@ const ProductList = () => {
                 <td className='line-clamp-1'>{product.description}</td>
                 <td>{product.price}</td>
                 <td className='flex items-center justify-center gap-2'>
-                  <button className='size-10 bg-blue-500 flex items-center justify-center text-white rounded-md'>
+                  <Link
+                    href={'/produk/' + product.id}
+                    className='size-10 bg-blue-500 flex items-center justify-center text-white rounded-md'
+                  >
                     <BiEdit className='size-6' />
-                  </button>
-                  <button className='size-10 bg-red-500 flex items-center justify-center text-white rounded-md'>
+                  </Link>
+                  <button
+                    className='size-10 bg-red-500 flex items-center justify-center text-white rounded-md'
+                    onClick={() => toggleModal()}
+                  >
                     <BiTrash className='size-6' />
                   </button>
                 </td>
@@ -82,6 +106,18 @@ const ProductList = () => {
         >
           Next
         </button>
+      </div>
+    </div>
+  );
+};
+
+const Modal = () => {
+  const handleHapus = () => {};
+
+  return (
+    <div className='absolute w-full wrapper p-5 md:p-20  flex justify-center items-center h-screen'>
+      <div className='flex flex-col bg-white p-5 rounded-lg border border-blue-500'>
+        Hapus?w akowak koa ko
       </div>
     </div>
   );

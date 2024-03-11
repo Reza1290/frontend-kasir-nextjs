@@ -8,15 +8,6 @@ import { useState } from 'react';
 export default function Login() {
   const { data: session } = useSession();
 
-  // const handle = async (e: any) => {
-  //   e.preventDefault();
-  //   const cookie = await axios.post('http://localhost:1290/login', {
-  //     email: 'reza@g.com',
-  //   });
-
-  //   console.log(cookie);
-  // };
-
   const [Username, setUsername] = useState('');
   const [Password, setPassword] = useState('');
 

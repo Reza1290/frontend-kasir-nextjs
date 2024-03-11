@@ -14,7 +14,7 @@ const ProductList = () => {
 
     // Mengambil data produk dari API dengan menyertakan token JWT dalam header Authorization
     fetch(
-      `${process.env.DOMAIN_API}/api/transaction_items?page=${currentPage}`,
+      `${process.env.NEXT_PUBLIC_DOMAIN_API}/api/transaction_items?page=${currentPage}`,
       {
         headers: {
           Authorization: `Bearer ${session.user.accessToken}`,
@@ -24,8 +24,7 @@ const ProductList = () => {
       .then((response) => response.json())
       .then((data) => {
         setProducts(data.data.data);
-      })
-      .catch((error) => console.error('Error fetching data:', error));
+      });
   }, [currentPage, session, status]);
 
   const handlePreviousPage = () => {

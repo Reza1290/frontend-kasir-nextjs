@@ -13,16 +13,18 @@ const ProductList = () => {
     if (!session?.user) return; // Jika tidak ada sesi atau masih memuat, hentikan pengambilan data produk
 
     // Mengambil data produk dari API dengan menyertakan token JWT dalam header Authorization
-    fetch(`${process.env.DOMAIN_API}/api/transactions?page=${currentPage}`, {
-      headers: {
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    })
+    fetch(
+      `${process.env.NEXT_PUBLIC_DOMAIN_API}/api/transactions?page=${currentPage}`,
+      {
+        headers: {
+          Authorization: `Bearer ${session.user.accessToken}`,
+        },
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         setProducts(data.data.data);
       })
-      .catch((error) => console.error('Error fetching data:', error));
   }, [currentPage, session, status]);
 
   const handlePreviousPage = () => {
