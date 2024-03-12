@@ -27,7 +27,7 @@ const ProductList = () => {
           },
         }
       )
-      .then((response) => setProducts(response.data.data))
+      .then((response) => setProducts(response.data.data.data))
       .catch((e) => 1);
   }, [currentPage, session, status]);
 
@@ -69,7 +69,7 @@ const ProductList = () => {
               <tr key={product.id}>
                 <td>{index + 1}</td>
                 <td>{product.name}</td>
-                <td>{product.category.name}</td>
+                <td>{product.category?.name}</td>
                 <td className='line-clamp-1'>{product.description}</td>
                 <td>{product.price}</td>
                 <td className='flex items-center justify-center gap-2'>

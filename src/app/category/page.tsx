@@ -24,7 +24,8 @@ const ProductList = () => {
         }
       )
       .then((response) => {
-        setProducts(response.data.data); // Update the state with the fetched products data
+        console.log(response);
+        setProducts(response.data.data.data); // Update the state with the fetched products data
       })
       .catch((error) => {
         console.error('Error fetching product categories:', error);

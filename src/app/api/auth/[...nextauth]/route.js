@@ -28,41 +28,45 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
       //   password: { label: "Password", type: "password" },
       // },
       authorize : async (credentials) => {
-        try {
-          const user = await axios.post('http://167.172.70.125:8000/api/login',
-          {
-            user: {
-              password: credentials.password,
-              username: credentials.username
-            }
-          },
-          {
-            headers: {
-              accept: '*/*',
-              'Content-Type': 'application/json'
-            }
+        // try {
+        //   const user = await axios.post('http://localhost:8000/api/login',
+        //   {
+        //     user: {
+        //       username: credentials.username,
+        //       password: credentials.password
+        //     }
+        //   },
+        //   {
+        //     headers: {
+        //       accept: '*/*',
+        //       'Content-Type': 'application/json'
+        //     }
+        //   })
+        //   if(user.status === 201){
+        //     console.log(user)
+        //     return user;
+        //   }
+        //   if (user) {
+        //     return {status: 'success', data: user}
+        //   } 
+        // } catch (e) {
+        //   const errorMessage = e.response.data.message
+        //   // Redirecting to the login page with error message          in the URL
+        //   console.log(e)
+        //   throw new Error(errorMessage + '&email=' + e.response)
+        // }
+        return axios
+          .post(`http://167.172.70.125:8000/api/login`, {
+            username: credentials.username,
+            password: credentials.password,
           })
-  
-          if (user) {
-            return {status: 'success', data: user}
-          } 
-        } catch (e) {
-          const errorMessage = e.response.data.message
-          // Redirecting to the login page with error message          in the URL
-          throw new Error(errorMessage + '&email=' + credentials.username)
-        }
-        // return axios
-        //   .post(`http://167.172.70.125:8000/api/login`, {
-        //     username: credentials.username,
-        //     password: credentials.password,
-        //   })
-        //   .then((response) => {
-        //     return response.data;
-        //   })
-        //   .catch((error) => {
-        //     console.log(error.response);
-        //     throw new Error(error.response.data.message);
-        //   }) || null;
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+            throw new Error(error.response.data.message);
+          }) || null;
       //   try {
       //     const {username, password } = credentials;
       

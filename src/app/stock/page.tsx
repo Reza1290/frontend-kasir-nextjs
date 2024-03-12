@@ -23,7 +23,7 @@ const ProductList = () => {
           },
         }
       )
-      .then((response) => setProducts(response.data.data));
+      .then((response) => setProducts(response.data.data.data));
   }, [currentPage, session, status]);
 
   const handlePreviousPage = () => {
