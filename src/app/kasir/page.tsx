@@ -1,4 +1,5 @@
 'use client';
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { BiMinus, BiPlus, BiX } from 'react-icons/bi';
@@ -251,18 +252,18 @@ const Modal = ({ data, close, totalBelanja }: any) => {
         alert('Tambahkan Pesanan Dahulu');
         return;
       }
-      const response = await fetch(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_DOMAIN_API}/api/transactions`,
+        transaksi,
         {
-          method: 'POST',
           headers: {
             Authorization: `Bearer ${session?.user.accessToken}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(transaksi),
         }
       );
-      const hasil = await response.json();
+    
+      const hasil = response.data;
       console.log(hasil);
       if (hasil.error) {
         alert('Gagal ' + hasil.error);

@@ -1,4 +1,5 @@
 'use client';
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
@@ -34,17 +35,17 @@ const EditProduk = ({ params: { slug } }: any) => {
       id_category: kategori,
     };
 
-    const response = await fetch(
+    const respone = await axios.put(
       `${process.env.NEXT_PUBLIC_DOMAIN_API}/api/products/${slug}`,
+      produk,
       {
-        method: 'PUT',
         headers: {
           Authorization: `Bearer ${session?.user.accessToken}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(produk),
       }
     );
+
   };
 
   useEffect(() => {

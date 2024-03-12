@@ -1,4 +1,5 @@
 'use client';
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { BiEdit, BiTrash } from 'react-icons/bi';
@@ -9,23 +10,26 @@ const ProductList = () => {
   const { data: session, status } = useSession(); // Menggunakan useSession dari NextAuth
 
   useEffect(() => {
-    if (status === 'loading') return; // Jika tidak ada sesi atau masih memuat, hentikan pengambilan data produk
-    if (!session?.user) return; // Jika tidak ada sesi atau masih memuat, hentikan pengambilan data produk
+    // If the status is 'loading', or there is no user session, exit the effect
+    if (status === 'loading' || !session?.user) return;
 
-    // Mengambil data produk dari API dengan menyertakan token JWT dalam header Authorization
-    fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN_API}/api/product_categories?page=${currentPage}`,
-      {
-        headers: {
-          Authorization: `Bearer ${session.user.accessToken}`,
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.data.data);
+    // Fetch product categories data from the API
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_DOMAIN_API}/api/product_categories?page=${currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${session.user.accessToken}`, // Include JWT token in the header
+          },
+        }
+      )
+      .then((response) => {
+        setProducts(response.data.data); // Update the state with the fetched products data
       })
-      
+      .catch((error) => {
+        console.error('Error fetching product categories:', error);
+        // Handle errors here, such as setting an error state
+      });
   }, [currentPage, session, status]);
 
   const handlePreviousPage = () => {

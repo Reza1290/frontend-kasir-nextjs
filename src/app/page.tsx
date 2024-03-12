@@ -15,12 +15,7 @@ export default function Home() {
   const { data: session, status } = useSession();
 
   const router = useRouter();
-  const handleClick = (list: number) => {
-    router.push('/cart');
-  };
-  const handleRoute = () => {
-    router.push('/cart');
-  };
+ 
 
   if (status === 'loading') {
     return <>...</>;

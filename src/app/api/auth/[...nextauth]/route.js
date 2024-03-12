@@ -30,15 +30,13 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
           "password": credentials.password
         };
 
-        const resp = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_API}/api/login`, {
-          method: "POST",
+        const response = await axios.post(`${process.env.NEXT_PUBLIC_DOMAIN_API}/api/login`, credentialDetails, {
           headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentialDetails),
+            'Content-Type': 'application/json'
+          }
         });
-        const user = await resp.json();
-        
+    
+        const user = response.data;
         
         if (user.ok) {
           return user;

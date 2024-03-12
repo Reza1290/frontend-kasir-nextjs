@@ -1,4 +1,5 @@
 'use client';
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { BiEdit, BiTrash } from 'react-icons/bi';
@@ -13,18 +14,16 @@ const ProductList = () => {
     if (!session?.user) return; // Jika tidak ada sesi atau masih memuat, hentikan pengambilan data produk
 
     // Mengambil data produk dari API dengan menyertakan token JWT dalam header Authorization
-    fetch(
-      `${process.env.NEXT_PUBLIC_DOMAIN_API}/api/transaction_items?page=${currentPage}`,
-      {
-        headers: {
-          Authorization: `Bearer ${session.user.accessToken}`,
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setProducts(data.data.data);
-      });
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_DOMAIN_API}/api/transaction_items?page=${currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${session.user.accessToken}`,
+          },
+        }
+      )
+      .then((response) => setProducts(response.data.data));
   }, [currentPage, session, status]);
 
   const handlePreviousPage = () => {

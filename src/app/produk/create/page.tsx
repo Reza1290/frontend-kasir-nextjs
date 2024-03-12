@@ -1,4 +1,5 @@
 'use client';
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
@@ -29,15 +30,14 @@ const CreateProduk = () => {
       id_category: kategori,
     };
 
-    const response = await fetch(
+    const response = await axios.post(
       `${process.env.NEXT_PUBLIC_DOMAIN_API}/api/products`,
+      produk,
       {
-        method: 'POST',
         headers: {
           Authorization: `Bearer ${session?.user.accessToken}`,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(produk),
       }
     );
   };
@@ -46,12 +46,13 @@ const CreateProduk = () => {
     if (status === 'loading') return; // Jika tidak ada sesi atau masih memuat, hentikan pengambilan data produk
     if (!session?.user) return; // Jika tidak ada sesi atau masih memuat, hentikan pengambilan data produk
     // Mengambil data produk dari API dengan menyertakan token JWT dalam header Authorization
-    fetch(`${process.env.NEXT_PUBLIC_DOMAIN_API}/api/product_categories_all`, {
-      headers: {
-        Authorization: `Bearer ${session.user.accessToken}`,
-      },
-    })
-      .then((response) => response.json())
+    axios
+      .get(`${process.env.NEXT_PUBLIC_DOMAIN_API}/api/product_categories_all`, {
+        headers: {
+          Authorization: `Bearer ${session.user.accessToken}`,
+        },
+      })
+      .then((response) => response.data)
       .then((data) => {
         setCategories(data.data);
         setKategori(data.data[0].id);
