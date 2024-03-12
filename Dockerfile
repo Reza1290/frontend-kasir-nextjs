@@ -83,6 +83,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY src ./src
 COPY public ./public
 COPY package.json next.config.js ./
+COPY types ./types
 RUN npm run build
 
 # Stage 3: run
