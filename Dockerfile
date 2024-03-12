@@ -84,6 +84,7 @@ COPY src ./src
 COPY public ./public
 COPY package.json next.config.js ./
 COPY types ./types
+COPY .env ./
 RUN npm run build
 
 # Stage 3: run
