@@ -26,7 +26,7 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
       },
       async authorize(credentials) {
         return axios
-          .post(`${process.env.NEXT_PUBLIC_DOMAIN_API}/api/login`, {
+          .post(`http://167.172.70.125:8000/api/login`, {
             username: credentials.username,
             password: credentials.password,
           })
