@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Dongle, Gabarito, Inter, Sen } from 'next/font/google';
 import './globals.css';
-import SessionProvider from '@/providers/SessionProvider';
+import SessionProvider from '../providers/SessionProvider';
 import { getServerSession } from 'next-auth';
 import MainLayout from './layouts/MainLayout';
 import Login from './components/Login';
