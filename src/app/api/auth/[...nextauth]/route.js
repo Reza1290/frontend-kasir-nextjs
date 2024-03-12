@@ -12,7 +12,7 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
  const authOptions = {
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 24 * 60 * 60, // 30 days
   },
   providers: [
     CredentialsProvider({
@@ -64,8 +64,8 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: '/login',
-    
+    signIn: "api/auth/sigin",
+
   },
   
 }
