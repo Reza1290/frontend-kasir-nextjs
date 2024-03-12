@@ -25,24 +25,18 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const credentialDetails = {
-          username : credentials.username,
-          password : credentials.password
-        };
-
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_DOMAIN_API}/api/login`, credentialDetails, {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-    
-        const user = response.data;
-        
-        if (user.ok) {
-          return user;
-        } else {
-          return null;
-        }
+        return axios
+          .post(`${process.env.NEXT_PUBLIC_DOMAIN_API}/auth/login`, {
+            username: credentials.username,
+            password: credentials.password,
+          })
+          .then((response) => {
+            return response.data;
+          })
+          .catch((error) => {
+            console.log(error.response);
+            throw new Error(error.response.data.message);
+          }) || null;
       },
     }),
   ],
