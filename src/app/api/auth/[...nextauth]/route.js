@@ -1,9 +1,10 @@
 import axios from "axios";
 import { AuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
-import GoogleProvider from "next-auth/providers/google"
-import CredentialsProvider from "next-auth/providers/credentials"
-import Providers from 'next-auth/providers'
+// import GoogleProvider from "next-auth/providers/google"
+// import CredentialsProvider from "next-auth/providers/credentials"
+// import Providers from 'next-auth/providers'
+import Credentials from "next-auth/providers/credentials";
 
 // import authoptions from "@/utils/authoptions";
 
@@ -17,7 +18,7 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
     maxAge: 24 * 60 * 60, // 30 days
   },
   providers: [
-    Providers.Credentials({
+    Credentials({
       name: "credentials",
       // credentials: {
       //   username: {
