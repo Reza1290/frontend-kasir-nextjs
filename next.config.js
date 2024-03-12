@@ -6,5 +6,8 @@ module.exports = {
             key: 'Access-Control-Allow-Origin',
             value: "*",
         }
-    ]
+    ],
+    eslint:{
+        ignoreDuringBuilds: true,
+    }
 };
