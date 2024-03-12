@@ -26,8 +26,8 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
       },
       async authorize(credentials) {
         const credentialDetails = {
-          "username" : credentials.username,
-          "password": credentials.password
+          username : credentials.username,
+          password : credentials.password
         };
 
         const response = await axios.post(`${process.env.NEXT_PUBLIC_DOMAIN_API}/api/login`, credentialDetails, {
