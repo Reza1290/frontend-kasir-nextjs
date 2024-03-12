@@ -12,7 +12,7 @@ export default function Login() {
   const [Password, setPassword] = useState('');
 
   const handleLogin = async (e: any) => {
-    e.preventDefault();
+    // e.preventDefault();
     const credentialDetails = {
       username: Username,
       password: Password,
