@@ -97,4 +97,5 @@ COPY --from=builder /app/package.json ./
 COPY --from=builder /app/types ./types
 # Copy environment variables
 COPY --from=builder /app/.env ./
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start", "--", "--hostname", "0.0.0.0"]
+
