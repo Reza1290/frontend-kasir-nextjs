@@ -13,7 +13,7 @@ export default function Login() {
 
   const handleLogin = async (e: any) => {
     e.preventDefault();
-    const respon = await axios.get('http://172.17.0.3:8000/');
+    const respon = await axios.get('http://167.172.70.125/:8000/');
     console.log(respon.data);
     await signIn('credentials', {
       callbackUrl: `${window.location.origin}`,
