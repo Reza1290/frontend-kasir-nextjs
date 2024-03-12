@@ -64,7 +64,7 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
   },
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
-    signIn: "api/auth/sigin",
+    signIn: "api/auth/signin",
 
   },
   
