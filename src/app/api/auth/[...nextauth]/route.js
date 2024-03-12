@@ -3,6 +3,8 @@ import { AuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
+import Providers from 'next-auth/providers'
+
 // import authoptions from "@/utils/authoptions";
 
 
@@ -15,28 +17,67 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
     maxAge: 24 * 60 * 60, // 30 days
   },
   providers: [
-    CredentialsProvider({
-      type: "credentials",
-      credentials: {
-        username: {
-          label: "Username",
-          type: "text",
-        },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials) {
-        return axios
-          .post(`http://167.172.70.125:8000/api/login`, {
-            username: credentials.username,
-            password: credentials.password,
+    Providers.Credentials({
+      name: "credentials",
+      // credentials: {
+      //   username: {
+      //     label: "Username",
+      //     type: "text",
+      //   },
+      //   password: { label: "Password", type: "password" },
+      // },
+      authorize : async (credentials) => {
+        try {
+          const user = await axios.post('http://167.172.70.125:8000/api/login',
+          {
+            user: {
+              password: credentials.password,
+              username: credentials.username
+            }
+          },
+          {
+            headers: {
+              accept: '*/*',
+              'Content-Type': 'application/json'
+            }
           })
-          .then((response) => {
-            return response.data;
-          })
-          .catch((error) => {
-            console.log(error.response);
-            throw new Error(error.response.data.message);
-          }) || null;
+  
+          if (user) {
+            return {status: 'success', data: user}
+          } 
+        } catch (e) {
+          const errorMessage = e.response.data.message
+          // Redirecting to the login page with error message          in the URL
+          throw new Error(errorMessage + '&email=' + credentials.username)
+        }
+        // return axios
+        //   .post(`http://167.172.70.125:8000/api/login`, {
+        //     username: credentials.username,
+        //     password: credentials.password,
+        //   })
+        //   .then((response) => {
+        //     return response.data;
+        //   })
+        //   .catch((error) => {
+        //     console.log(error.response);
+        //     throw new Error(error.response.data.message);
+        //   }) || null;
+      //   try {
+      //     const {username, password } = credentials;
+      
+      //     const response = await postFetchNoInterceptor({ fetchData: {username, password }, url: apiAuth });
+      
+      //     const { data: { body: { message = '', token = '', user = {} } = {}, statusCode = 0 } = {} } = response;
+      
+      //     if (statusCode === 200) {
+      //         return user;
+      //     }
+      
+      //     throw new Error(message);
+      // } catch (err) {
+      //     throw new Error('Next Auth - Authorize: Authentication error');
+      //     return null
+      // }
       },
     }),
   ],
@@ -57,10 +98,10 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-  pages: {
-    signIn: "api/auth/signin",
+  // pages: {
+  //   signIn: "api/auth/signin",
 
-  },
+  // },
   
 }
 

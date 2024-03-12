@@ -18,16 +18,15 @@ export default function Login() {
       password: Password,
     };
 
-    const respon = await axios.post(
-      'http://167.172.70.125:8000/api/login',
-      credentialDetails
-    );
-    console.log(respon.data);
+    // const respon = await axios.post(
+    //   'http://167.172.70.125:8000/api/login',
+    //   credentialDetails
+    // );
+    // console.log(respon.data);
     await signIn('credentials', {
-      callbackUrl: `${window.location.origin}`,
-      redirect: true,
       username: Username,
       password: Password,
+      callbackUrl: `${window.location.origin}`,
     });
   };
 
