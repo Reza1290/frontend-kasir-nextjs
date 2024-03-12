@@ -7,7 +7,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 
 
 // @ts-ignore
-const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API;
+const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
 
  const authOptions = {
   session: {
