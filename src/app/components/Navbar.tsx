@@ -9,7 +9,7 @@ export default function Navbar() {
     <div className='wrapper'>
       <div className='flex justify-between items-center py-8'>
         <a href='' className='max-h-24 flex items-center'>
-          <img src='ikon.png' alt='1' className='max-h-24' />
+          {/* <img src='ikon.png' alt='1' className='max-h-24' /> */}
           <p className='text-primary text-xl font-bold'>CiptaKode</p>
         </a>
         <div className='flex justify-between items-center gap-4'>

@@ -45,7 +45,6 @@ const EditProduk = ({ params: { slug } }: any) => {
         },
       }
     );
-
   };
 
   useEffect(() => {
@@ -73,7 +72,7 @@ const EditProduk = ({ params: { slug } }: any) => {
         setCategories(data.data);
       })
       .catch((error) => 1);
-  }, [session, status]);
+  }, [session, status, slug]);
 
   return (
     <div className='flex flex-col  items-center gap-4'>
