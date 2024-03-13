@@ -20,7 +20,7 @@ const authOptions:any = {
   },
   providers: [
     Credentials({
-      id : 'username-login',
+      id : 'credentials',
       name: 'credentials',
       credentials: {
         username: {
