@@ -10,7 +10,7 @@ import Credentials from "next-auth/providers/credentials";
 
 
 // @ts-ignore
-const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
+// const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
 
  const authOptions = {
   session: {
@@ -59,7 +59,12 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
           .post(`http://167.172.70.125:8000/api/login`, {
             username: credentials.username,
             password: credentials.password,
-          })
+          },{
+                headers: {
+                  accept: '*/*',
+                  'Content-Type': 'application/json'
+                }
+              })
           .then((response) => {
             return Promise.resolve(response.data);
           })
