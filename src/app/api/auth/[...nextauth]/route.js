@@ -15,7 +15,7 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
  const authOptions = {
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60, // 30 days
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   providers: [
     Credentials({
