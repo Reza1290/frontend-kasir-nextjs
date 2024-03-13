@@ -61,11 +61,12 @@ const backendURL = process.env.NEXT_PUBLIC_DOMAIN_API ;
             password: credentials.password,
           })
           .then((response) => {
-            return response.data;
+            return Promise.resolve(response.data);
           })
           .catch((error) => {
             console.log(error);
-            throw new Error(error.response.data.message);
+            // throw new Error(error.response.data.message);
+            return null;
           }) || null;
       //   try {
       //     const {username, password } = credentials;
