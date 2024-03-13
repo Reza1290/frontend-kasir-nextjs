@@ -13,11 +13,14 @@ import Credentials from 'next-auth/providers/credentials';
 
 const authOptions:any = {
   session: {
+    
     strategy: 'jwt',
     maxAge: 30 * 24 * 60 * 60, // 30 days
+    jwt: true
   },
   providers: [
     Credentials({
+      id : 'username-login',
       name: 'credentials',
       credentials: {
         username: {

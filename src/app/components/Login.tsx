@@ -23,7 +23,7 @@ export default function Login() {
     //   credentialDetails
     // );
     // console.log(respon.data);
-    await signIn('credentials', {
+    await signIn('username-login', {
       username: Username,
       password: Password,
       callbackUrl: `${window.location.origin}`,
